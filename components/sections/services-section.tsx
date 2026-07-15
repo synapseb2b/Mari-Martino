@@ -2,37 +2,36 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Mic, Zap, Building2, ArrowRight } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
-interface ServiceCard {
-  icon: LucideIcon;
-  tag: string;
+interface ServiceRow {
   number: string;
+  tag: string;
+  tagSolid?: boolean;
   title: string;
   description: string;
   items?: string[];
   ctaLabel: string;
-  ctaHref: string;
+  href: string;
+  external?: boolean;
 }
 
 const WHATSAPP_BASE = "https://wa.me/5519991396595?text=";
 
-const services: ServiceCard[] = [
+const services: ServiceRow[] = [
   {
-    icon: Mic,
+    number: "/01",
     tag: "Autoridade",
-    number: "01",
     title: "Palestras & Masterclasses",
     description:
       "IA aplicada a Talent Acquisition, sem teoria vazia. Para eventos, lideranças e times que precisam entender o que muda na contratação a partir de agora.",
     ctaLabel: "Convidar para uma palestra",
-    ctaHref: `${WHATSAPP_BASE}${encodeURIComponent("Olá Mari, quero convidar você para uma palestra ou masterclass.")}`,
+    href: `${WHATSAPP_BASE}${encodeURIComponent("Olá Mari, quero convidar você para uma palestra ou masterclass.")}`,
+    external: true,
   },
   {
-    icon: Zap,
+    number: "/02",
     tag: "Entrada",
-    number: "02",
     title: "Fast Tracks",
     description:
       "Formatos diretos para resolver um problema específico de recrutamento com IA. Você escolhe a profundidade.",
@@ -42,135 +41,118 @@ const services: ServiceCard[] = [
       "Sessão Estratégica ao vivo: 50 min para destravar um desafio",
     ],
     ctaLabel: "Começar por um Fast Track",
-    ctaHref: `${WHATSAPP_BASE}${encodeURIComponent("Olá Mari, tenho interesse nos Fast Tracks de TA + IA.")}`,
+    href: `${WHATSAPP_BASE}${encodeURIComponent("Olá Mari, tenho interesse nos Fast Tracks de TA + IA.")}`,
+    external: true,
   },
   {
-    icon: Building2,
+    number: "/03",
     tag: "Transformação",
-    number: "03",
+    tagSolid: true,
     title: "Projeto de Arquitetura de TA",
     description:
       "O trabalho completo. Começa por um Diagnóstico Estratégico e evolui para um projeto que redesenha o processo, indica as ferramentas certas (inclusive IA) e capacita o time — sem assumir a sua operação.",
-    ctaLabel: "Fazer o Diagnóstico",
-    ctaHref: "/diagnostico",
+    ctaLabel: "Começar pelo pré-diagnóstico",
+    href: "/diagnostico",
   },
 ];
 
-const containerVariants = {
+const container = {
   hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.1 },
-  },
+  visible: { transition: { staggerChildren: 0.08 } },
 };
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 20 },
+const rowVariant = {
+  hidden: { opacity: 0, y: 24 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] as const },
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
   },
 };
 
 export function ServicesSection() {
   return (
-    <section id="services" className="relative py-24 md:py-32 bg-[#F8FAFC] overflow-hidden">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16 sm:mb-20"
-        >
-          <p className="text-xs font-bold uppercase tracking-wider text-primary mb-4">
-            Como trabalho
-          </p>
-          <h2 className="text-4xl md:text-5xl font-extrabold text-[#0A0F1E] tracking-tight text-center">
-            Da autoridade à transformação da sua operação
-          </h2>
-        </motion.div>
+    <section id="services" className="relative bg-ink text-paper">
+      <div className="mx-auto max-w-[1360px] px-6 sm:px-10 py-[104px] pb-28">
+        {/* Section header */}
+        <div className="flex items-center gap-[18px] mb-7">
+          <span className="type-mono text-[14px] font-semibold text-coral">02</span>
+          <span className="flex-1 h-px bg-paper opacity-25" />
+          <span className="type-mono text-[12px] text-paper">Como trabalho</span>
+        </div>
+        <h2 className="type-display text-paper max-w-[920px] mb-16 text-[clamp(32px,6vw,54px)] leading-[1.02]">
+          Da autoridade à{" "}
+          <em className="em-serif text-coral">transformação</em> da sua operação
+        </h2>
 
-        {/* Cards Grid */}
+        {/* Rows */}
         <motion.div
-          variants={containerVariants}
+          variants={container}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-6"
         >
-          {services.map((service) => {
-            const Icon = service.icon;
-            const isInternal = service.ctaHref.startsWith("/");
+          {services.map((s, idx) => {
+            const inner = (
+              <>
+                <span className="type-mono text-[15px] tracking-normal text-coral pt-1.5">
+                  {s.number}
+                </span>
+                <div>
+                  <span
+                    className={
+                      s.tagSolid
+                        ? "inline-block type-mono text-[10px] tracking-[0.14em] text-ink bg-coral px-2.5 py-[5px] mb-3.5"
+                        : "inline-block type-mono text-[10px] tracking-[0.14em] text-[rgba(245,240,232,0.55)] border border-[rgba(245,240,232,0.3)] px-2.5 py-1 mb-3.5"
+                    }
+                  >
+                    {s.tag}
+                  </span>
+                  <h3 className="type-subdisplay text-[32px] leading-[1.1]">{s.title}</h3>
+                </div>
+                <div>
+                  <p className="text-[15px] leading-relaxed text-[rgba(245,240,232,0.65)] mb-4">
+                    {s.description}
+                  </p>
+                  {s.items && (
+                    <div className="flex flex-col gap-2 mb-4">
+                      {s.items.map((it, i) => (
+                        <span
+                          key={i}
+                          className="flex gap-2.5 text-[14px] leading-snug text-[rgba(245,240,232,0.8)]"
+                        >
+                          <span className="text-coral">→</span>
+                          {it}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                  <span className="inline-flex items-center gap-2 font-bold text-[14px] text-coral">
+                    {s.ctaLabel}
+                  </span>
+                </div>
+                <ArrowUpRight
+                  className="size-7 text-coral justify-self-start md:justify-self-end mt-2.5"
+                  strokeWidth={2}
+                />
+              </>
+            );
+
+            const rowClass =
+              "group grid grid-cols-1 md:grid-cols-[90px_1.1fr_1.3fr_60px] gap-6 md:gap-10 items-start py-10 border-t border-[rgba(245,240,232,0.22)] text-paper transition-all duration-300 hover:bg-[rgba(245,240,232,0.04)] hover:pl-4" +
+              (idx === services.length - 1 ? " border-b border-[rgba(245,240,232,0.22)]" : "");
 
             return (
-              <motion.div
-                key={service.number}
-                variants={cardVariants}
-                className="bg-white rounded-2xl border border-black/5 p-6 sm:p-8 card-glow-light group hover:border-primary/20 transition-all duration-300 flex flex-col"
-              >
-                {/* Number + Icon */}
-                <div className="flex items-start justify-between mb-6">
-                  <span className="text-4xl font-light text-primary/20">
-                    {service.number}
-                  </span>
-                  <div className="flex items-center justify-center bg-primary/10 rounded-xl p-3 text-primary">
-                    <Icon className="size-6" />
-                  </div>
-                </div>
-
-                {/* Tag */}
-                <span className="inline-flex self-start items-center rounded-full bg-primary/10 text-primary text-[11px] font-semibold uppercase tracking-wider px-3 py-1 mb-4">
-                  {service.tag}
-                </span>
-
-                {/* Title */}
-                <h3 className="text-xl sm:text-2xl font-bold text-[#0A0F1E] group-hover:text-primary transition-colors mb-3">
-                  {service.title}
-                </h3>
-
-                {/* Description */}
-                <p className="text-sm text-neutral-500 leading-relaxed mb-6">
-                  {service.description}
-                </p>
-
-                {/* Optional items */}
-                {service.items && (
-                  <ul className="space-y-2.5 mb-6">
-                    {service.items.map((item, i) => (
-                      <li key={i} className="flex items-start gap-2.5">
-                        <ArrowRight className="size-4 text-primary shrink-0 mt-0.5" />
-                        <span className="text-sm text-neutral-600 leading-relaxed">
-                          {item}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
+              <motion.div key={s.number} variants={rowVariant}>
+                {s.external ? (
+                  <a href={s.href} target="_blank" rel="noopener noreferrer" className={rowClass}>
+                    {inner}
+                  </a>
+                ) : (
+                  <Link href={s.href} className={rowClass}>
+                    {inner}
+                  </Link>
                 )}
-
-                {/* CTA */}
-                <div className="mt-auto pt-4 border-t border-black/5">
-                  {isInternal ? (
-                    <Link
-                      href={service.ctaHref}
-                      className="inline-flex items-center gap-1.5 text-sm font-bold text-primary hover:text-primary/80 transition group/btn"
-                    >
-                      {service.ctaLabel}
-                      <ArrowRight className="size-4 transition-transform group-hover/btn:translate-x-1" />
-                    </Link>
-                  ) : (
-                    <a
-                      href={service.ctaHref}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-sm font-bold text-primary hover:text-primary/80 transition group/btn"
-                    >
-                      {service.ctaLabel}
-                      <ArrowRight className="size-4 transition-transform group-hover/btn:translate-x-1" />
-                    </a>
-                  )}
-                </div>
               </motion.div>
             );
           })}

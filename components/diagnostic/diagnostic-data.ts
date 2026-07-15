@@ -61,7 +61,7 @@ export const DIMENSIONS: DiagnosticDimension[] = [
     id: "processo",
     name: "Estrutura & Processo de TA",
     icon: Settings,
-    color: "#818cf8",
+    color: "#E8432D",
     questions: [
       {
         q: "Quem é o principal responsável por conduzir processos seletivos na sua empresa?",
@@ -96,7 +96,7 @@ export const DIMENSIONS: DiagnosticDimension[] = [
     id: "dados",
     name: "Dados & Métricas de Recrutamento",
     icon: BarChart3,
-    color: "#22d3ee",
+    color: "#1D7A70",
     questions: [
       {
         q: "Vocês sabem, hoje, qual é o tempo médio para preencher uma vaga?",
@@ -131,7 +131,7 @@ export const DIMENSIONS: DiagnosticDimension[] = [
     id: "tecnologia",
     name: "Tecnologia & Ferramentas",
     icon: Wrench,
-    color: "#f59e0b",
+    color: "#E8920B",
     questions: [
       {
         q: "Qual ferramenta vocês usam para gerenciar os processos seletivos?",
@@ -166,7 +166,7 @@ export const DIMENSIONS: DiagnosticDimension[] = [
     id: "lideranca",
     name: "Envolvimento da Liderança",
     icon: Users,
-    color: "#f472b6",
+    color: "#C92466",
     questions: [
       {
         q: "Qual é o papel do CEO ou diretor nos processos seletivos?",
@@ -201,7 +201,7 @@ export const DIMENSIONS: DiagnosticDimension[] = [
     id: "marca",
     name: "Marca Empregadora & Atração",
     icon: Sparkles,
-    color: "#a78bfa",
+    color: "#6B4FBB",
     questions: [
       {
         q: "Se um candidato pesquisar sua empresa no Google ou LinkedIn, o que encontra?",
@@ -244,7 +244,7 @@ export const STAGES: MaturityStage[] = [
     name: "Reativo",
     subtitle: "Apagando Incêndios",
     range: [15, 27],
-    color: "#ef4444",
+    color: "#B3261E",
     icon: AlertTriangle,
     description:
       "Sua operação de TA funciona no modo urgência. As contratações são reativas — só acontecem quando alguém sai ou a dor fica insuportável. O CEO ou gestor é o recrutador de facto, e o custo invisível de vagas abertas corrói a receita.",
@@ -267,7 +267,7 @@ export const STAGES: MaturityStage[] = [
     name: "Operacional",
     subtitle: "Tem Processo, Falta Inteligência",
     range: [28, 39],
-    color: "#f59e0b",
+    color: "#E8920B",
     icon: Settings,
     description:
       "Sua empresa já tem algum processo de recrutamento, mas opera sem dados e sem visibilidade. O RH executa, mas não consegue provar o valor da operação nem antecipar problemas. A liderança sente que precisa supervisionar tudo.",
@@ -290,7 +290,7 @@ export const STAGES: MaturityStage[] = [
     name: "Estratégico",
     subtitle: "Dados Guiam Decisões",
     range: [40, 51],
-    color: "#22d3ee",
+    color: "#1D7A70",
     icon: TrendingUp,
     description:
       "Sua operação de TA usa dados para decidir, tem processos documentados e a liderança confia no sistema. O próximo passo é antecipar necessidades e usar tecnologia avançada para vantagem competitiva na atração.",
@@ -312,7 +312,7 @@ export const STAGES: MaturityStage[] = [
     name: "Preditivo",
     subtitle: "Talento como Vantagem Competitiva",
     range: [52, 60],
-    color: "#8b5cf6",
+    color: "#191410",
     icon: Brain,
     description:
       "Sua empresa trata talento como ativo estratégico. O TA antecipa necessidades, usa inteligência de mercado e dados preditivos para garantir as pessoas certas antes de precisar delas. Pouquíssimas empresas de médio porte chegam aqui.",
@@ -335,12 +335,12 @@ export const STAGES: MaturityStage[] = [
    ────────────────────────────────────────── */
 
 export const INTRO_CARDS: IntroCard[] = [
-  { icon: Settings, label: "Processo", color: "#818cf8" },
-  { icon: BarChart3, label: "Dados", color: "#22d3ee" },
-  { icon: Wrench, label: "Tecnologia", color: "#f59e0b" },
-  { icon: Users, label: "Liderança", color: "#f472b6" },
-  { icon: Sparkles, label: "Marca", color: "#a78bfa" },
-  { icon: Calculator, label: "Custo", color: "#fb923c" },
+  { icon: Settings, label: "Processo", color: "#E8432D" },
+  { icon: BarChart3, label: "Dados", color: "#1D7A70" },
+  { icon: Wrench, label: "Tecnologia", color: "#E8920B" },
+  { icon: Users, label: "Liderança", color: "#C92466" },
+  { icon: Sparkles, label: "Marca", color: "#6B4FBB" },
+  { icon: Calculator, label: "Custo", color: "#FF6B4A" },
 ];
 
 /* ──────────────────────────────────────────

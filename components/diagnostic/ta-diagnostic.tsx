@@ -2,21 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import {
-  ArrowLeft,
-  ArrowRight,
-  ChevronRight,
-  AlertTriangle,
-  Target,
-  RotateCcw,
-  Clock,
-  Zap,
-  CircleDot,
-  CheckCircle2,
-  Shield,
-  Lightbulb,
-  BarChart3,
-} from "lucide-react";
+import { ArrowLeft, ArrowRight, TriangleAlert, Target, RotateCcw } from "lucide-react";
 
 import {
   DIMENSIONS,
@@ -29,19 +15,30 @@ import { RingChart } from "./ring-chart";
 import { DimensionBar } from "./dimension-bar";
 import { CostCalculator } from "./cost-calculator";
 
-/* ──────────────────────────────────────────
-   Keyframe styles injected once
-   ────────────────────────────────────────── */
 const KEYFRAMES = `
-@keyframes fi {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes pg {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(139,92,246,0); }
-  50%      { box-shadow: 0 0 32px 4px rgba(139,92,246,0.15); }
-}
+@keyframes fi { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 `;
+
+const SHORTS = ["Processo", "Dados", "Tecnologia", "Liderança", "Marca"];
+
+function Asterisk({ size = 120 }: { size?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 100 100"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={7}
+      strokeLinecap="round"
+    >
+      <path d="M50 8v84" />
+      <path d="M13.6 29l72.8 42" />
+      <path d="M86.4 29l-72.8 42" />
+    </svg>
+  );
+}
 
 export function TADiagnostic() {
   const [screen, setScreen] = useState<"intro" | "quiz" | "result">("intro");
@@ -56,15 +53,14 @@ export function TADiagnostic() {
   const gIdx = cDim * 3 + cQ;
   const tScore = Object.values(ans).reduce((a, b) => a + b, 0);
   const stage = getStage(tScore);
+  const stageAccent = stage.color === "#191410" ? "#E8432D" : stage.color;
 
-  /* ── Quiz navigation ── */
   function pick(score: number) {
     setAnim(true);
     setAns({ ...ans, [gIdx]: score });
     setTimeout(() => {
-      if (cQ < 2) {
-        setCQ(cQ + 1);
-      } else if (cDim < 4) {
+      if (cQ < 2) setCQ(cQ + 1);
+      else if (cDim < 4) {
         setCDim(cDim + 1);
         setCQ(0);
       } else {
@@ -72,7 +68,7 @@ export function TADiagnostic() {
         setTimeout(() => setShowRes(true), 100);
       }
       setAnim(false);
-    }, 350);
+    }, 320);
   }
 
   function back() {
@@ -85,218 +81,172 @@ export function TADiagnostic() {
 
   const dim = DIMENSIONS[cDim];
   const q = dim?.questions[cQ];
-  const DIcon = dim?.icon;
 
-  /* ════════════════════════════════════════
-     INTRO SCREEN
-     ════════════════════════════════════════ */
+  /* ══════════ INTRO ══════════ */
   if (screen === "intro") {
     return (
-      <div className="min-h-screen bg-[#0A0F1E] flex items-center justify-center p-6 font-sans relative">
+      <div className="min-h-screen bg-background flex items-center justify-center px-6 sm:px-8 py-12 relative font-sans">
         <style>{KEYFRAMES}</style>
 
-        {/* Subtle grid bg */}
-        <div className="absolute inset-0 bg-grid opacity-50" />
-
-        {/* Back to site link */}
         <Link
           href="/"
-          className="absolute top-6 left-6 flex items-center gap-1.5 text-[#64748b] hover:text-primary text-sm font-sans transition-colors z-10"
+          className="absolute top-6 left-6 sm:left-7 inline-flex items-center gap-2 type-mono text-[12px] text-ink-soft hover:text-primary transition-colors"
         >
-          <ArrowLeft size={14} />
+          <ArrowLeft size={14} strokeWidth={2.5} />
           Voltar ao site
         </Link>
 
-        <div className="relative z-10 max-w-[580px] w-full text-center animate-[fi_0.6s_ease]">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-[18px] py-[7px] rounded-full mb-9 bg-primary/10 border border-primary/20">
-            <Clock size={13} className="text-primary" />
-            <span className="text-[11.5px] text-primary tracking-[0.06em] uppercase font-semibold">
-              Diagn&oacute;stico gratuito &middot; 5 minutos
-            </span>
-          </div>
+        <div
+          className="pointer-events-none absolute top-9 right-8 text-primary opacity-90"
+          style={{ animation: "spin-slow 28s linear infinite" }}
+        >
+          <Asterisk size={120} />
+        </div>
 
-          {/* Heading */}
-          <h1 className="text-[clamp(32px,5vw,46px)] font-extrabold text-[#f8fafc] leading-[1.12] mb-[18px] tracking-tight">
-            Qual &eacute; o n&iacute;vel de maturidade da{" "}
-            <span className="text-gradient">
-              Aquisi&ccedil;&atilde;o de Talentos
-            </span>{" "}
-            da sua empresa?
+        <div className="max-w-[680px] w-full text-center" style={{ animation: "fi 0.6s cubic-bezier(0.22,1,0.36,1) both" }}>
+          <span className="inline-flex items-center gap-2.5 border-[1.5px] border-ink px-[18px] py-2.5 type-mono text-[11.5px] text-ink mb-10">
+            <span className="size-[9px] bg-primary inline-block" />
+            Pré-diagnóstico gratuito · 5 minutos
+          </span>
+
+          <h1 className="type-display text-ink text-[clamp(32px,7vw,54px)] leading-none mb-[22px]">
+            Qual é o nível de maturidade da{" "}
+            <em className="em-serif text-primary">Aquisição de Talentos</em> da sua
+            empresa?
           </h1>
 
-          {/* Subheading */}
-          <p className="text-base text-[#94a3b8] leading-[1.7] mx-auto mb-11 max-w-[480px]">
-            15 perguntas para descobrir se sua opera&ccedil;&atilde;o de recrutamento est&aacute;
-            acelerando ou freando o crescimento. Resultado imediato com
-            diagn&oacute;stico e a&ccedil;&otilde;es priorit&aacute;rias.
+          <p className="text-[17px] leading-relaxed text-ink-soft max-w-[520px] mx-auto mb-11">
+            15 perguntas para descobrir se sua operação de recrutamento está
+            acelerando ou freando o crescimento. Resultado imediato com uma
+            leitura inicial e ações prioritárias.
           </p>
 
-          {/* Dimension cards */}
-          <div className="grid grid-cols-3 gap-2.5 mb-11 max-w-[400px] mx-auto">
-            {INTRO_CARDS.map((c, i) => {
-              const I = c.icon;
-              return (
-                <div
-                  key={i}
-                  className="py-3.5 px-2 bg-card/50 border border-border rounded-[10px] text-center animate-[fi_0.5s_ease_both]"
-                  style={{ animationDelay: `${0.1 + i * 0.07}s` }}
-                >
-                  <I size={20} color={c.color} className="mx-auto mb-1.5" />
-                  <div className="text-[11px] text-[#64748b] tracking-[0.04em]">
-                    {c.label}
-                  </div>
-                </div>
-              );
-            })}
+          <div className="flex flex-wrap justify-center gap-2.5 mb-12">
+            {INTRO_CARDS.map((c) => (
+              <span
+                key={c.label}
+                className="inline-flex items-center gap-2.5 border-[1.5px] border-ink px-4 py-2.5 type-mono text-[11px] tracking-[0.08em] text-ink"
+              >
+                <span className="size-2 inline-block" style={{ background: c.color }} />
+                {c.label}
+              </span>
+            ))}
           </div>
 
-          {/* CTA button */}
           <button
             onClick={() => setScreen("quiz")}
-            className="inline-flex items-center gap-2.5 px-[52px] py-4 bg-primary text-white border-none rounded-xl font-sans text-base font-bold cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_40px_rgba(139,92,246,0.4)]"
-            style={{
-              boxShadow: "0 4px 32px rgba(139,92,246,0.3)",
-            }}
+            className="inline-flex items-center gap-3 bg-primary text-ink font-extrabold text-[17px] px-11 py-5 btn-offset cursor-pointer"
           >
-            Iniciar Diagn&oacute;stico <ArrowRight size={18} />
+            Iniciar Pré-diagnóstico
+            <ArrowRight size={18} strokeWidth={2.5} />
           </button>
 
-          {/* Footer credit */}
-          <p className="text-xs text-[#334155] mt-7">
-            Desenvolvido por{" "}
-            <strong className="text-[#64748b]">Mariane Martino</strong>
-            {" "}&middot; Senior Tech TA &middot; 17+ anos
+          <p className="type-mono text-[11px] tracking-[0.08em] text-[rgba(25,20,16,0.45)] mt-8">
+            Desenvolvido por <strong className="text-ink">Mariane Martino</strong> ·
+            Senior Tech TA · 17+ anos
           </p>
         </div>
       </div>
     );
   }
 
-  /* ════════════════════════════════════════
-     QUIZ SCREEN
-     ════════════════════════════════════════ */
+  /* ══════════ QUIZ ══════════ */
   if (screen === "quiz") {
     return (
-      <div className="min-h-screen bg-[#0A0F1E] flex flex-col font-sans">
+      <div className="min-h-screen bg-background flex flex-col font-sans">
         <style>{KEYFRAMES}</style>
 
         {/* Top bar */}
-        <div className="px-7 pt-[18px] pb-0">
-          {/* Dimension name + progress count */}
-          <div className="flex items-center justify-between mb-2.5">
-            <span
-              className="flex items-center gap-2 text-xs font-semibold"
-              style={{ color: dim.color }}
-            >
-              <DIcon size={14} /> {dim.name}
-            </span>
-            <span className="text-xs text-[#475569] font-medium">
-              {answered}/{total}
-            </span>
-          </div>
+        <div className="border-b-[1.5px] border-ink px-6 sm:px-8 pt-5 pb-4">
+          <div className="max-w-[780px] mx-auto">
+            <div className="flex items-center justify-between mb-3">
+              <span
+                className="type-mono text-[12px] tracking-[0.1em] font-semibold"
+                style={{ color: dim.color }}
+              >
+                {dim.name}
+              </span>
+              <span className="type-mono text-[12px] tracking-normal text-[rgba(25,20,16,0.5)]">
+                {answered}/{total}
+              </span>
+            </div>
 
-          {/* Progress bar */}
-          <div className="h-[3px] bg-[#1E293B] rounded-sm overflow-hidden">
-            <div
-              className="h-full rounded-sm transition-[width] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
-              style={{
-                width: `${(answered / total) * 100}%`,
-                background: "linear-gradient(90deg, #8B5CF6, #6366F1)",
-              }}
-            />
-          </div>
+            <div className="h-[5px] bg-[rgba(25,20,16,0.12)] overflow-hidden">
+              <div
+                className="h-full transition-[width] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+                style={{ width: `${(answered / total) * 100}%`, background: dim.color }}
+              />
+            </div>
 
-          {/* Dimension step indicators */}
-          <div className="flex gap-[5px] mt-2.5">
-            {DIMENSIONS.map((d, i) => {
-              const I = d.icon;
-              const done = i < cDim;
-              const cur = i === cDim;
-              return (
-                <div
-                  key={d.id}
-                  className="flex-1 flex items-center justify-center py-1.5 rounded-md transition-all duration-300"
-                  style={{
-                    background: done
-                      ? `${d.color}18`
-                      : cur
-                        ? `${d.color}10`
-                        : "transparent",
-                    border: cur
-                      ? `1px solid ${d.color}40`
-                      : "1px solid transparent",
-                  }}
-                >
-                  {done ? (
-                    <CheckCircle2 size={12} color={d.color} />
-                  ) : (
-                    <I size={12} color={cur ? d.color : "#334155"} />
-                  )}
-                </div>
-              );
-            })}
+            <div className="flex gap-1.5 mt-2.5">
+              {DIMENSIONS.map((d, i) => {
+                const done = i < cDim;
+                const cur = i === cDim;
+                return (
+                  <div
+                    key={d.id}
+                    className="flex-1 flex items-center justify-center py-[7px] px-1"
+                    style={{
+                      background: done ? d.color : cur ? d.color + "22" : "rgba(25,20,16,0.06)",
+                      border: cur ? `1.5px solid ${d.color}` : "1.5px solid transparent",
+                    }}
+                  >
+                    <span
+                      className="type-mono text-[10px] tracking-[0.08em]"
+                      style={{ color: done ? "#F5F0E8" : cur ? d.color : "rgba(25,20,16,0.4)" }}
+                    >
+                      <span className="hidden sm:inline">{SHORTS[i]}</span>
+                      <span className="sm:hidden">{SHORTS[i][0]}</span>
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
 
-        {/* Question area */}
-        <div className="flex-1 flex items-center justify-center px-7 py-6">
+        {/* Question */}
+        <div className="flex-1 flex items-center justify-center px-6 sm:px-8 py-10">
           <div
-            className="max-w-[620px] w-full transition-all duration-300 ease-out"
+            className="max-w-[720px] w-full transition-all duration-300 ease-out"
             style={{
               opacity: anim ? 0 : 1,
               transform: anim ? "translateY(8px)" : "translateY(0)",
             }}
           >
-            {/* Question number */}
-            <div className="text-[11.5px] text-primary mb-3.5 tracking-[0.06em] flex items-center gap-1.5 font-semibold uppercase">
-              <CircleDot size={12} /> PERGUNTA {gIdx + 1} DE {total}
+            <div className="flex items-center gap-2.5 mb-[18px]">
+              <span className="size-2.5 bg-primary inline-block" />
+              <span className="type-mono text-[12px] tracking-[0.14em] text-primary font-semibold">
+                Pergunta {gIdx + 1} de {total}
+              </span>
             </div>
 
-            {/* Question text */}
-            <h2 className="text-[clamp(22px,3.5vw,27px)] font-bold text-[#f1f5f9] leading-[1.35] mb-8 tracking-tight">
+            <h2 className="type-subdisplay text-ink text-[clamp(22px,4vw,30px)] leading-[1.25] mb-9">
               {q.q}
             </h2>
 
-            {/* Options */}
-            <div className="flex flex-col gap-2">
-              {q.options.map((o, i) => {
-                const sel = ans[gIdx] === o.score;
-                return (
-                  <button
-                    key={i}
-                    onClick={() => pick(o.score)}
-                    className="flex items-start gap-3 px-[18px] py-[15px] rounded-[10px] text-[#e2e8f0] font-sans text-sm leading-relaxed text-left cursor-pointer transition-all duration-200 hover:bg-[#ffffff06] hover:border-[#ffffff18]"
-                    style={{
-                      background: sel ? `${dim.color}12` : "rgba(255,255,255,0.02)",
-                      border: sel
-                        ? `1.5px solid ${dim.color}50`
-                        : "1.5px solid rgba(255,255,255,0.05)",
-                    }}
-                  >
-                    <span
-                      className="flex items-center justify-center min-w-[24px] h-6 rounded-md text-[11px] shrink-0 mt-px transition-all duration-200 font-semibold"
-                      style={{
-                        background: sel ? dim.color : "#1E293B",
-                        border: sel ? "none" : "1px solid #334155",
-                        color: sel ? "#fff" : "#475569",
-                      }}
-                    >
-                      {String.fromCharCode(65 + i)}
-                    </span>
-                    {o.text}
-                  </button>
-                );
-              })}
+            <div className="flex flex-col gap-2.5">
+              {q.options.map((o, i) => (
+                <button
+                  key={i}
+                  onClick={() => pick(o.score)}
+                  className="flex items-start gap-4 px-5 py-[18px] bg-card border-[1.5px] border-ink text-ink text-[15px] leading-snug text-left cursor-pointer card-lift"
+                >
+                  <span className="type-mono flex items-center justify-center min-w-[26px] h-[26px] text-[12px] font-semibold shrink-0 bg-background border-[1.5px] border-[rgba(25,20,16,0.35)] text-ink-soft">
+                    {String.fromCharCode(65 + i)}
+                  </span>
+                  {o.text}
+                </button>
+              ))}
             </div>
 
-            {/* Back button */}
             {gIdx > 0 && (
               <button
                 onClick={back}
-                className="mt-7 px-[18px] py-[9px] bg-transparent border border-border rounded-lg text-[#64748b] font-sans text-[13px] cursor-pointer inline-flex items-center gap-1.5 transition-colors hover:border-primary/40 hover:text-primary"
+                className="mt-8 inline-flex items-center gap-2 px-[18px] py-2.5 bg-transparent border-[1.5px] border-[rgba(25,20,16,0.3)] text-ink-soft type-mono text-[12px] tracking-[0.08em] cursor-pointer hover:border-primary hover:text-primary transition-colors"
               >
-                <ArrowLeft size={14} /> Voltar
+                <ArrowLeft size={13} strokeWidth={2.5} />
+                Voltar
               </button>
             )}
           </div>
@@ -305,207 +255,147 @@ export function TADiagnostic() {
     );
   }
 
-  /* ════════════════════════════════════════
-     RESULT SCREEN
-     ════════════════════════════════════════ */
+  /* ══════════ RESULT ══════════ */
   if (screen === "result") {
-    const SI = stage.icon;
     return (
-      <div className="min-h-screen bg-[#0A0F1E] font-sans px-6 py-9 relative">
+      <div className="min-h-screen bg-background font-sans px-6 sm:px-8 py-16">
         <style>{KEYFRAMES}</style>
 
-        {/* Subtle grid bg */}
-        <div className="absolute inset-0 bg-grid opacity-30 pointer-events-none" />
-
         <div
-          className="relative z-10 max-w-[660px] mx-auto transition-all duration-800 ease-[cubic-bezier(0.22,1,0.36,1)]"
+          className="max-w-[760px] mx-auto transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
           style={{
             opacity: showRes ? 1 : 0,
             transform: showRes ? "translateY(0)" : "translateY(20px)",
           }}
         >
-          {/* ── Header ── */}
-          <div className="text-center mb-10">
-            {/* Stage badge */}
-            <div
-              className="inline-flex items-center gap-2 px-5 py-[7px] rounded-full mb-[22px]"
-              style={{
-                background: `${stage.color}12`,
-                border: `1px solid ${stage.color}35`,
-              }}
+          {/* Header */}
+          <div className="text-center mb-12">
+            <span
+              className="inline-flex items-center gap-2.5 type-mono text-[11.5px] font-semibold px-[18px] py-2 mb-[26px] border-[1.5px]"
+              style={{ background: stage.color + "12", borderColor: stage.color, color: stageAccent }}
             >
-              <SI size={14} color={stage.color} />
-              <span
-                className="text-xs tracking-[0.07em] uppercase font-semibold"
-                style={{ color: stage.color }}
-              >
-                {stage.name} &middot; {stage.subtitle}
-              </span>
-            </div>
-
-            <h1 className="text-[clamp(28px,5vw,38px)] font-extrabold text-[#f8fafc] leading-[1.18] mb-3.5 tracking-tight">
-              Sua opera&ccedil;&atilde;o de TA est&aacute; no est&aacute;gio{" "}
-              <span style={{ color: stage.color }}>
+              {stage.name} · {stage.subtitle}
+            </span>
+            <h1 className="type-display text-ink text-[clamp(28px,6vw,44px)] leading-[1.05] mb-4">
+              Sua operação de TA está no estágio{" "}
+              <em className="em-serif" style={{ color: stageAccent }}>
                 {stage.name}
-              </span>
+              </em>
             </h1>
-            <p className="text-[15px] text-[#94a3b8] leading-[1.65] max-w-[520px] mx-auto">
+            <p className="text-[16px] leading-relaxed text-ink-soft max-w-[560px] mx-auto">
               {stage.description}
             </p>
           </div>
 
-          {/* ── Score ring + dimension bars ── */}
-          <div className="grid grid-cols-1 sm:grid-cols-[200px_1fr] gap-9 mb-9 items-start">
+          {/* Score + bars */}
+          <div className="grid grid-cols-1 sm:grid-cols-[220px_1fr] gap-11 items-center mb-10">
             <RingChart score={tScore} max={60} stage={stage} />
             <div>
-              <h3 className="text-[11px] text-[#475569] uppercase tracking-[0.08em] mb-4 flex items-center gap-1.5 font-semibold">
-                <BarChart3 size={12} /> Score por dimens&atilde;o
-              </h3>
+              <p className="type-mono text-[11px] tracking-[0.14em] text-[rgba(25,20,16,0.55)] mb-4">
+                Score por dimensão
+              </p>
               {DIMENSIONS.map((d, i) => (
-                <DimensionBar
-                  key={d.id}
-                  dim={d}
-                  score={getDimScore(ans, i)}
-                  idx={i}
-                />
+                <DimensionBar key={d.id} dim={d} score={getDimScore(ans, i)} idx={i} />
               ))}
             </div>
           </div>
 
-          {/* ── Maturity scale ── */}
-          <div className="bg-card/50 border border-border rounded-[14px] p-6 mb-7">
-            <h3 className="text-[11px] text-[#475569] uppercase tracking-[0.08em] mb-3.5 flex items-center gap-1.5 font-semibold">
-              <Zap size={12} /> Escala de maturidade
-            </h3>
-            <div className="flex gap-1.5">
+          {/* Maturity scale */}
+          <div className="border-2 border-ink p-6 mb-6 bg-card">
+            <p className="type-mono text-[11px] tracking-[0.14em] text-[rgba(25,20,16,0.55)] mb-4">
+              Escala de maturidade
+            </p>
+            <div className="flex gap-2">
               {STAGES.map((s) => {
-                const SIc = s.icon;
                 const act = s.id === stage.id;
                 return (
                   <div
                     key={s.id}
-                    className="flex-1 py-3.5 px-2 rounded-[10px] text-center transition-all duration-300"
+                    className="flex-1 py-3.5 px-2 text-center"
                     style={{
-                      background: act ? `${s.color}15` : "transparent",
-                      border: act
-                        ? `2px solid ${s.color}`
-                        : "1px solid #1E293B",
-                      animation: act ? "pg 3s ease infinite" : "none",
+                      background: act ? s.color + "14" : "transparent",
+                      border: act ? `2px solid ${s.color}` : "1px solid rgba(25,20,16,0.2)",
                     }}
                   >
-                    <SIc
-                      size={16}
-                      color={act ? s.color : "#334155"}
-                      className="mx-auto mb-1"
-                    />
-                    <div
-                      className="text-[10px] font-bold uppercase tracking-[0.05em]"
-                      style={{ color: act ? s.color : "#475569" }}
+                    <p
+                      className="type-mono text-[11px] font-bold tracking-[0.08em]"
+                      style={{ color: act ? (s.color === "#191410" ? "#191410" : s.color) : "rgba(25,20,16,0.45)" }}
                     >
                       {s.name}
-                    </div>
-                    <div className="text-[9px] text-[#475569] mt-0.5 font-medium">
-                      {s.range[0]}-{s.range[1]}
-                    </div>
+                    </p>
+                    <p className="type-mono text-[10px] tracking-normal text-[rgba(25,20,16,0.45)] mt-1">
+                      {s.range[0]}–{s.range[1]}
+                    </p>
                   </div>
                 );
               })}
             </div>
           </div>
 
-          {/* ── Risks ── */}
-          <div className="bg-[#ef444410] border border-[#ef444425] rounded-[14px] p-[26px] mb-4">
-            <h3 className="flex items-center gap-2 text-[15px] font-bold text-[#fca5a5] mb-4">
-              <Shield size={16} color="#ef4444" /> Riscos do est&aacute;gio atual
+          {/* Risks */}
+          <div className="border-2 border-[#B3261E] bg-[rgba(179,38,30,0.05)] p-7 mb-5">
+            <h3 className="flex items-center gap-2.5 type-subdisplay text-[17px] text-[#B3261E] mb-[18px]">
+              <TriangleAlert size={17} strokeWidth={2} />
+              Riscos do estágio atual
             </h3>
-            {stage.risks.map((r, i) => (
-              <div key={i} className="flex gap-2.5 mb-2.5 items-start">
-                <AlertTriangle
-                  size={13}
-                  color="#ef4444"
-                  className="shrink-0 mt-[3px]"
-                />
-                <span className="text-sm text-[#e2e8f0] leading-relaxed">
-                  {r}
-                </span>
-              </div>
-            ))}
-          </div>
-
-          {/* ── Actions ── */}
-          <div
-            className="rounded-[14px] p-[26px] mb-4"
-            style={{
-              background: `${stage.color}08`,
-              border: `1px solid ${stage.color}25`,
-            }}
-          >
-            <h3
-              className="flex items-center gap-2 text-[15px] font-bold mb-4"
-              style={{ color: stage.color }}
-            >
-              <Target size={16} color={stage.color} /> A&ccedil;&otilde;es priorit&aacute;rias para
-              avan&ccedil;ar
-            </h3>
-            {stage.actions.map((a, i) => (
-              <div key={i} className="flex gap-2.5 mb-2.5 items-start">
-                <span
-                  className="flex items-center justify-center min-w-[22px] h-[22px] rounded-md text-[11px] font-semibold shrink-0 mt-0.5"
-                  style={{
-                    background: `${stage.color}20`,
-                    color: stage.color,
-                  }}
-                >
-                  {i + 1}
-                </span>
-                <span className="text-sm text-[#e2e8f0] leading-relaxed">
-                  {a}
-                </span>
-              </div>
-            ))}
-          </div>
-
-          {/* ── Cost Calculator ── */}
-          <CostCalculator stage={stage} />
-
-          {/* ── CTA card ── */}
-          <div
-            className="rounded-[18px] p-9 mt-8 text-center"
-            style={{
-              background: `linear-gradient(135deg, ${stage.color}10, ${stage.color}05)`,
-              border: `1px solid ${stage.color}30`,
-            }}
-          >
-            <div
-              className="flex items-center justify-center w-12 h-12 rounded-xl mx-auto mb-4"
-              style={{ background: `${stage.color}15` }}
-            >
-              <Lightbulb size={22} color={stage.color} />
+            <div className="flex flex-col gap-2.5">
+              {stage.risks.map((r, i) => (
+                <div key={i} className="flex gap-3 items-start">
+                  <span className="size-[7px] bg-[#B3261E] shrink-0 mt-[7px]" />
+                  <span className="text-[14.5px] leading-relaxed text-ink">{r}</span>
+                </div>
+              ))}
             </div>
-            <h3 className="text-[26px] font-extrabold text-[#f1f5f9] mb-2.5 tracking-tight">
-              Quer acelerar essa evolu&ccedil;&atilde;o?
+          </div>
+
+          {/* Actions */}
+          <div className="p-7 mb-5" style={{ border: `2px solid ${stage.color}`, background: stage.color + "0a" }}>
+            <h3 className="flex items-center gap-2.5 type-subdisplay text-[17px] mb-[18px]" style={{ color: stageAccent }}>
+              <Target size={17} strokeWidth={2} />
+              Ações prioritárias para avançar
             </h3>
-            <p className="text-sm text-[#94a3b8] leading-relaxed mb-1.5 max-w-[440px] mx-auto">
+            <div className="flex flex-col gap-3">
+              {stage.actions.map((a, i) => (
+                <div key={i} className="flex gap-3 items-start">
+                  <span
+                    className="type-mono flex items-center justify-center min-w-[24px] h-6 text-[12px] font-bold shrink-0"
+                    style={{ background: stage.color + "1c", color: stageAccent }}
+                  >
+                    {i + 1}
+                  </span>
+                  <span className="text-[14.5px] leading-relaxed text-ink">{a}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Cost Calculator */}
+          <CostCalculator />
+
+          {/* CTA */}
+          <div className="bg-ink px-9 py-11 text-center">
+            <h3 className="type-display text-paper text-[30px] mb-3">
+              Quer <em className="em-serif text-coral">acelerar</em> essa evolução?
+            </h3>
+            <p className="text-[14.5px] leading-relaxed text-[rgba(245,240,232,0.7)] max-w-[460px] mx-auto mb-2">
               {stage.cta}
             </p>
-            <p className="text-[13px] text-[#64748b] mb-7">
-              Sess&atilde;o de devolutiva personalizada com an&aacute;lise detalhada e plano de
-              a&ccedil;&atilde;o sob medida.
+            <p className="text-[13px] text-[rgba(245,240,232,0.45)] mb-7">
+              Sessão de devolutiva personalizada com análise detalhada e plano de
+              ação sob medida.
             </p>
             <a
-              href="https://wa.me/5519991396595?text=Ol%C3%A1%20Mari%2C%20fiz%20o%20diagn%C3%B3stico%20e%20gostaria%20de%20agendar%20uma%20devolutiva."
+              href="https://wa.me/5519991396595?text=Ol%C3%A1%20Mari%2C%20fiz%20o%20pr%C3%A9-diagn%C3%B3stico%20e%20gostaria%20de%20agendar%20uma%20devolutiva."
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2.5 px-11 py-[15px] bg-primary text-white border-none rounded-xl font-sans text-[15px] font-bold cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_40px_rgba(139,92,246,0.4)]"
-              style={{
-                boxShadow: "0 4px 28px rgba(139,92,246,0.3)",
-              }}
+              className="inline-flex items-center gap-3 bg-paper text-ink font-extrabold text-[16px] px-9 py-[18px] btn-offset-vermillion"
             >
-              Agendar Devolutiva com a Mari <ChevronRight size={18} />
+              Agendar Devolutiva com a Mari
+              <ArrowRight size={17} strokeWidth={2.5} />
             </a>
           </div>
 
-          {/* ── Footer ── */}
+          {/* Footer */}
           <div className="text-center mt-9 pb-10">
             <button
               onClick={() => {
@@ -515,12 +405,13 @@ export function TADiagnostic() {
                 setAns({});
                 setShowRes(false);
               }}
-              className="px-6 py-2.5 bg-transparent border border-border rounded-lg text-[#64748b] font-sans text-[13px] cursor-pointer inline-flex items-center gap-1.5 transition-colors hover:border-primary/40 hover:text-primary"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-transparent border-[1.5px] border-[rgba(25,20,16,0.3)] text-ink-soft type-mono text-[12px] tracking-[0.08em] cursor-pointer hover:border-primary hover:text-primary transition-colors"
             >
-              <RotateCcw size={13} /> Refazer diagn&oacute;stico
+              <RotateCcw size={13} strokeWidth={2.5} />
+              Refazer pré-diagnóstico
             </button>
-            <p className="text-[11px] text-[#1E293B] mt-6">
-              TA Maturity Diagnostic&trade; &middot; Por Mariane Martino &middot; Acelera&ccedil;&atilde;o de Maturidade de TA
+            <p className="type-mono text-[10px] tracking-[0.1em] text-[rgba(25,20,16,0.35)] mt-6">
+              TA Maturity Diagnostic™ · Por Mariane Martino · Aceleração de Maturidade de TA
             </p>
           </div>
         </div>

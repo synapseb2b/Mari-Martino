@@ -2,21 +2,14 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { AlertTriangle, Zap } from "lucide-react";
+import { TriangleAlert, Zap, ArrowRight } from "lucide-react";
 
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.1 },
-  },
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 20 },
+const fadeUp = {
+  hidden: { opacity: 0, y: 26 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] as const },
+    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const },
   },
 };
 
@@ -36,102 +29,91 @@ const reasons = [
 
 export function ForWhoSection() {
   return (
-    <section id="for-who" className="relative bg-[#F8FAFC] py-24 md:py-32 overflow-hidden">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <p className="text-xs font-bold uppercase tracking-wider text-primary mb-4">
-            PARA QUEM
-          </p>
-          <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-[#0A0F1E]">
-            Para empresas que crescem mais rápido do que contratam
-          </h2>
-        </motion.div>
+    <section id="for-who" className="relative bg-background border-t-[1.5px] border-ink">
+      <div className="mx-auto max-w-[1360px] px-6 sm:px-10 py-[104px] pb-28">
+        {/* Section header */}
+        <div className="flex items-center gap-[18px] mb-7">
+          <span className="type-mono text-[14px] tracking-normal font-semibold text-primary">01</span>
+          <span className="flex-1 h-px bg-ink opacity-25" />
+          <span className="type-mono text-[12px] text-ink">Para quem</span>
+        </div>
+        <h2 className="type-display text-ink max-w-[900px] mb-16 text-[clamp(32px,6vw,54px)] leading-[1.02]">
+          Para empresas que crescem mais rápido{" "}
+          <em className="em-serif text-primary">do que contratam</em>
+        </h2>
 
-        {/* Cards */}
+        {/* Framed grid */}
         <motion.div
-          variants={containerVariants}
+          variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 border-2 border-ink"
         >
-          {/* Card — Sinais */}
-          <motion.div
-            variants={cardVariants}
-            className="bg-white rounded-2xl border border-black/5 p-6 sm:p-8 card-glow-light flex flex-col group"
-          >
-            <span className="inline-flex self-start items-center rounded-full bg-primary/10 text-primary text-[11px] font-semibold uppercase tracking-wider px-3 py-1 mb-5">
+          {/* O sinal */}
+          <div className="p-8 sm:p-12 flex flex-col bg-background border-b-2 md:border-b-0 md:border-r-2 border-ink transition-colors duration-300 hover:bg-card">
+            <span className="self-start type-mono text-[11px] tracking-[0.14em] text-primary border-[1.5px] border-primary px-3 py-1.5 mb-7">
               O sinal
             </span>
-
-            <h3 className="text-2xl sm:text-3xl font-bold text-[#0A0F1E] mb-3">
+            <h3 className="type-subdisplay text-ink text-[30px] mb-3.5">
               Sua operação de talentos travou
             </h3>
-
-            <p className="text-sm text-neutral-500 leading-relaxed mb-6">
+            <p className="text-[15px] leading-relaxed text-ink-soft mb-8">
               A empresa cresce, o CEO ainda entra em entrevistas e o time de RH
-              corre atrás sem parar. Se você reconhece os sinais abaixo, é hora de
-              estruturar.
+              corre atrás sem parar. Se você reconhece os sinais abaixo, é hora
+              de estruturar.
             </p>
-
-            <ul className="space-y-3 mb-8 flex-1">
+            <div className="flex flex-col flex-1 mb-8">
               {signals.map((item, i) => (
-                <li key={i} className="flex items-start gap-3">
-                  <AlertTriangle className="size-4 text-primary shrink-0 mt-0.5" />
-                  <span className="text-sm text-neutral-600 leading-relaxed">{item}</span>
-                </li>
+                <div
+                  key={i}
+                  className="flex items-start gap-3.5 py-3.5 border-t border-[rgba(25,20,16,0.15)]"
+                >
+                  <TriangleAlert className="size-4 text-primary shrink-0 mt-0.5" strokeWidth={2} />
+                  <span className="text-[15px] leading-snug text-ink">{item}</span>
+                </div>
               ))}
-            </ul>
-
+            </div>
             <Link
               href="/diagnostico"
-              className="inline-flex items-center self-start text-primary font-bold text-sm hover:underline transition-colors"
+              className="self-start inline-flex items-center gap-2 text-ink font-bold text-[15px] border-b-2 border-primary pb-[3px] hover:text-primary transition-colors"
             >
-              Fazer o diagnóstico gratuito →
+              Fazer o pré-diagnóstico gratuito
+              <ArrowRight className="size-[15px]" strokeWidth={2.5} />
             </Link>
-          </motion.div>
+          </div>
 
-          {/* Card — Por que a Mari */}
-          <motion.div
-            variants={cardVariants}
-            className="bg-white rounded-2xl border border-black/5 p-6 sm:p-8 card-glow-light flex flex-col group"
-          >
-            <span className="inline-flex self-start items-center rounded-full bg-primary/10 text-primary text-[11px] font-semibold uppercase tracking-wider px-3 py-1 mb-5">
+          {/* A solução */}
+          <div className="p-8 sm:p-12 flex flex-col bg-ink text-paper">
+            <span className="self-start type-mono text-[11px] tracking-[0.14em] text-coral border-[1.5px] border-coral px-3 py-1.5 mb-7">
               A solução
             </span>
-
-            <h3 className="text-2xl sm:text-3xl font-bold text-[#0A0F1E] mb-3">
+            <h3 className="type-subdisplay text-paper text-[30px] mb-3.5">
               Por que a Mari
             </h3>
-
-            <p className="text-sm text-neutral-500 leading-relaxed mb-6">
+            <p className="text-[15px] leading-relaxed text-[rgba(245,240,232,0.65)] mb-8">
               17 anos estruturando recrutamento em empresas de tecnologia de alta
               escala. Esse mesmo rigor, aplicado à realidade da sua empresa.
             </p>
-
-            <ul className="space-y-3 mb-8 flex-1">
+            <div className="flex flex-col flex-1 mb-8">
               {reasons.map((item, i) => (
-                <li key={i} className="flex items-start gap-3">
-                  <Zap className="size-4 text-primary shrink-0 mt-0.5" />
-                  <span className="text-sm text-neutral-600 leading-relaxed">{item}</span>
-                </li>
+                <div
+                  key={i}
+                  className="flex items-start gap-3.5 py-3.5 border-t border-[rgba(245,240,232,0.18)]"
+                >
+                  <Zap className="size-4 text-coral shrink-0 mt-0.5" strokeWidth={2} />
+                  <span className="text-[15px] leading-snug text-paper">{item}</span>
+                </div>
               ))}
-            </ul>
-
+            </div>
             <Link
               href="#services"
-              className="inline-flex items-center self-start text-primary font-bold text-sm hover:underline transition-colors"
+              className="self-start inline-flex items-center gap-2 text-paper font-bold text-[15px] border-b-2 border-coral pb-[3px] hover:text-coral transition-colors"
             >
-              Ver como trabalho →
+              Ver como trabalho
+              <ArrowRight className="size-[15px]" strokeWidth={2.5} />
             </Link>
-          </motion.div>
+          </div>
         </motion.div>
       </div>
     </section>

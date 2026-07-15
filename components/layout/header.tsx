@@ -2,13 +2,13 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ArrowRight } from "lucide-react";
 
 const navLinks = [
   { label: "Serviços", href: "#services" },
   { label: "Sobre", href: "#authority" },
-  { label: "Diagnóstico", href: "/diagnostico" },
+  { label: "Pré-diagnóstico", href: "/diagnostico" },
   { label: "Contato", href: "#contact" },
 ];
 
@@ -23,17 +23,6 @@ const mobileNavVariant = {
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { scrollY } = useScroll();
-
-  /* Scroll-driven opacity: 60% → 95% */
-  const headerBg = useTransform(
-    scrollY,
-    [0, 120],
-    ["rgba(10, 15, 30, 0.6)", "rgba(10, 15, 30, 0.95)"]
-  );
-
-  const headerBlur = useTransform(scrollY, [0, 120], [8, 20]);
-  const backdropValue = useTransform(headerBlur, (v) => `blur(${v}px)`);
 
   /* Lock body scroll when mobile menu is open */
   useEffect(() => {
@@ -46,25 +35,13 @@ export function Header() {
   return (
     <>
       {/* ── Header Bar ── */}
-      <motion.header
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] as const }}
-        style={{
-          backgroundColor: headerBg,
-          backdropFilter: backdropValue,
-          WebkitBackdropFilter: backdropValue,
-        }}
-        className="fixed top-0 w-full z-50 border-b border-white/[0.06]"
-      >
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between sm:h-20">
+      <header className="sticky top-0 z-50 w-full bg-background border-b-[1.5px] border-ink">
+        <div className="mx-auto max-w-[1360px] px-6 sm:px-10">
+          <div className="flex h-[74px] items-center justify-between gap-6">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2 group">
-              <span className="font-extrabold text-lg text-foreground tracking-tight">
-                Mari Martino
-              </span>
-              <span className="text-xs text-muted-foreground ml-2 hidden sm:inline">
+            <Link href="/" className="flex items-baseline gap-2.5">
+              <span className="type-display text-[19px] text-ink">Mari Martino</span>
+              <span className="type-mono text-[10px] text-primary hidden sm:inline">
                 Talent Acquisition
               </span>
             </Link>
@@ -75,7 +52,7 @@ export function Header() {
                 <Link
                   key={link.label}
                   href={link.href}
-                  className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                  className="type-mono text-[12px] tracking-[0.1em] text-ink hover:text-primary transition-colors px-3.5 py-2"
                 >
                   {link.label}
                 </Link>
@@ -83,27 +60,25 @@ export function Header() {
             </nav>
 
             {/* Desktop CTA */}
-            <div className="hidden lg:flex items-center">
-              <Link
-                href="/diagnostico"
-                className="inline-flex items-center gap-2 bg-primary text-white rounded-full px-5 py-2.5 text-sm font-bold shadow-lg shadow-primary/30 hover:shadow-primary/50 transition-all duration-300 hover:-translate-y-0.5"
-              >
-                Diagnóstico Gratuito
-                <ArrowRight className="size-4" />
-              </Link>
-            </div>
+            <Link
+              href="/diagnostico"
+              className="hidden lg:inline-flex items-center gap-2.5 bg-ink text-paper font-bold text-[14px] px-[22px] py-3 border-[1.5px] border-ink transition-all duration-[250ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-primary hover:text-ink hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_var(--ink)]"
+            >
+              Pré-diagnóstico gratuito
+              <ArrowRight className="size-[15px]" strokeWidth={2.5} />
+            </Link>
 
             {/* Mobile Hamburger */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="lg:hidden flex items-center justify-center size-10 rounded-lg text-foreground hover:bg-white/10 transition-colors"
+              className="lg:hidden flex items-center justify-center size-10 text-ink hover:text-primary transition-colors"
               aria-label={mobileOpen ? "Fechar menu" : "Abrir menu"}
             >
-              {mobileOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+              {mobileOpen ? <X className="size-6" /> : <Menu className="size-6" />}
             </button>
           </div>
         </div>
-      </motion.header>
+      </header>
 
       {/* ── Mobile Full-Screen Overlay ── */}
       <AnimatePresence>
@@ -113,21 +88,19 @@ export function Header() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl lg:hidden flex flex-col"
+            className="fixed inset-0 z-50 bg-ink lg:hidden flex flex-col"
           >
-            {/* Close button */}
-            <div className="flex justify-end p-4">
+            <div className="flex justify-end p-5">
               <button
                 onClick={() => setMobileOpen(false)}
-                className="flex items-center justify-center size-10 rounded-lg text-foreground hover:bg-white/10 transition-colors"
+                className="flex items-center justify-center size-10 text-paper hover:text-coral transition-colors"
                 aria-label="Fechar menu"
               >
-                <X className="size-6" />
+                <X className="size-7" />
               </button>
             </div>
 
-            {/* Nav Links */}
-            <nav className="flex flex-col items-center justify-center flex-1 gap-6">
+            <nav className="flex flex-col items-center justify-center flex-1 gap-7">
               {navLinks.map((link, i) => (
                 <motion.div
                   key={link.label}
@@ -139,14 +112,13 @@ export function Header() {
                   <Link
                     href={link.href}
                     onClick={() => setMobileOpen(false)}
-                    className="text-2xl font-bold text-foreground hover:text-primary transition-colors"
+                    className="type-display text-[28px] text-paper hover:text-coral transition-colors"
                   >
                     {link.label}
                   </Link>
                 </motion.div>
               ))}
 
-              {/* Mobile CTA */}
               <motion.div
                 custom={navLinks.length}
                 variants={mobileNavVariant}
@@ -157,10 +129,10 @@ export function Header() {
                 <Link
                   href="/diagnostico"
                   onClick={() => setMobileOpen(false)}
-                  className="inline-flex items-center gap-2 bg-primary text-white rounded-full px-7 py-3.5 text-base font-bold shadow-lg shadow-primary/30 hover:shadow-primary/50 transition-all duration-300"
+                  className="inline-flex items-center gap-2.5 bg-primary text-ink font-extrabold text-[16px] px-8 py-4 btn-offset-paper"
                 >
-                  Diagnóstico Gratuito
-                  <ArrowRight className="size-5" />
+                  Pré-diagnóstico gratuito
+                  <ArrowRight className="size-5" strokeWidth={2.5} />
                 </Link>
               </motion.div>
             </nav>

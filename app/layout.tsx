@@ -1,14 +1,28 @@
 import type { Metadata } from "next";
-import { Manrope } from "next/font/google";
+import { Archivo, Instrument_Serif, Spline_Sans_Mono } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { WhatsAppFloatingButton } from "@/components/ui/whatsapp-floating-button";
 import "./globals.css";
 
-const manrope = Manrope({
+const archivo = Archivo({
   subsets: ["latin", "latin-ext"],
-  weight: ["400", "500", "600", "700", "800"],
-  variable: "--font-manrope",
+  axes: ["wdth"],
+  variable: "--font-archivo",
+  display: "swap",
+});
+
+const instrumentSerif = Instrument_Serif({
+  weight: "400",
+  style: ["normal", "italic"],
+  subsets: ["latin"],
+  variable: "--font-instrument-serif",
+  display: "swap",
+});
+
+const splineMono = Spline_Sans_Mono({
+  subsets: ["latin"],
+  variable: "--font-spline-mono",
   display: "swap",
 });
 
@@ -73,7 +87,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className={manrope.variable}>
+    <html
+      lang="pt-BR"
+      className={`${archivo.variable} ${instrumentSerif.variable} ${splineMono.variable}`}
+    >
       <body className="font-sans antialiased bg-background text-foreground">
         <TooltipProvider>
           <Toaster />
