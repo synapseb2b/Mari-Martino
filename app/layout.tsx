@@ -19,17 +19,17 @@ export const metadata: Metadata = {
     template: "%s | Mari Martino",
   },
   description:
-    "Estruturo operações de Talent Acquisition com dados, processo e inteligência de mercado. 17 anos construindo máquinas de contratação em empresas como iFood, CI&T e Sage.",
+    "Arquitetura de operações de Talent Acquisition com dados, processo e IA. 17 anos em iFood, CI&T e Sage, com 1.000+ contratações tech lideradas em um único ano.",
   keywords: [
     "talent acquisition",
     "recrutamento",
     "maturidade de TA",
     "diagnóstico de recrutamento",
-    "mentoria TA",
+    "IA no recrutamento",
     "people analytics",
     "Mari Martino",
     "Mariane Martino",
-    "consultoria RH",
+    "consultoria de recrutamento",
     "time-to-fill",
   ],
   authors: [{ name: "Mariane Martino" }],
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     siteName: "Mari Martino — Talent Acquisition",
     title: "Mari Martino | Talent Acquisition",
     description:
-      "Estruturo operações de TA com dados e inteligência de mercado. Diagnóstico gratuito de maturidade de recrutamento para sua empresa.",
+      "Arquitetura de operações de TA com dados, processo e IA. Diagnóstico gratuito de maturidade de recrutamento para sua empresa.",
     images: [
       {
         url: "/images/og-image.jpg",
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Mari Martino | Talent Acquisition",
     description:
-      "Estruturo operações de TA com dados e inteligência de mercado. Diagnóstico gratuito.",
+      "Arquitetura de operações de TA com dados, processo e IA. Diagnóstico gratuito.",
   },
   alternates: {
     canonical: "https://mari-martino.vercel.app",

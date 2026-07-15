@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { User, Users, BarChart3, ArrowRight } from "lucide-react";
+import { Mic, Zap, Building2, ArrowRight } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 interface ServiceCard {
@@ -11,7 +11,7 @@ interface ServiceCard {
   number: string;
   title: string;
   description: string;
-  price: string;
+  items?: string[];
   ctaLabel: string;
   ctaHref: string;
 }
@@ -20,36 +20,38 @@ const WHATSAPP_BASE = "https://wa.me/5519991396595?text=";
 
 const services: ServiceCard[] = [
   {
-    icon: User,
-    tag: "PARA PROFISSIONAIS DE TA/RH",
+    icon: Mic,
+    tag: "Autoridade",
     number: "01",
-    title: "Mentoria Estratégica Individual",
+    title: "Palestras & Masterclasses",
     description:
-      "Sessões 1:1 para profissionais de TA em transição para liderança ou recém-promovidos. Construímos juntos: indicadores de recrutamento, SLAs com hiring managers e a narrativa que prova o valor da sua área para a diretoria.",
-    price: "R$ 180/hora",
-    ctaLabel: "Agendar conversa",
-    ctaHref: `${WHATSAPP_BASE}${encodeURIComponent("Olá Mari, tenho interesse na mentoria individual.")}`,
+      "IA aplicada a Talent Acquisition, sem teoria vazia. Para eventos, lideranças e times que precisam entender o que muda na contratação a partir de agora.",
+    ctaLabel: "Convidar para uma palestra",
+    ctaHref: `${WHATSAPP_BASE}${encodeURIComponent("Olá Mari, quero convidar você para uma palestra ou masterclass.")}`,
   },
   {
-    icon: Users,
-    tag: "PROGRAMA INTENSIVO · 6 SEMANAS",
+    icon: Zap,
+    tag: "Entrada",
     number: "02",
-    title: "TA Intelligence Program",
+    title: "Fast Tracks",
     description:
-      "6 sábados consecutivos para coordenadores e analistas de TA/RH que precisam sair do operacional e construir uma operação orientada por dados. Você sai com dashboards, SLAs, funil mapeado e um plano 30-60-90 pronto para apresentar.",
-    price: "R$ 1.200/participante",
-    ctaLabel: "Garantir vaga na próxima turma",
-    ctaHref: `${WHATSAPP_BASE}${encodeURIComponent("Olá Mari, quero saber sobre a próxima turma do TA Intelligence Program.")}`,
+      "Formatos diretos para resolver um problema específico de recrutamento com IA. Você escolhe a profundidade.",
+    items: [
+      "Guia prático gravado: IA no recrutamento, ponta a ponta",
+      "Diagnóstico Express: você preenche, eu devolvo 3 prioridades",
+      "Sessão Estratégica ao vivo: 50 min para destravar um desafio",
+    ],
+    ctaLabel: "Começar por um Fast Track",
+    ctaHref: `${WHATSAPP_BASE}${encodeURIComponent("Olá Mari, tenho interesse nos Fast Tracks de TA + IA.")}`,
   },
   {
-    icon: BarChart3,
-    tag: "PARA EMPRESAS",
+    icon: Building2,
+    tag: "Transformação",
     number: "03",
-    title: "Diagnóstico de Maturidade de TA",
+    title: "Projeto de Arquitetura de TA",
     description:
-      "Assessment online que mapeia 5 dimensões da sua operação de recrutamento e posiciona a empresa em um dos 4 estágios de maturidade. Inclui calculadora de custo de vacância. Devolutiva executiva com plano de ação sob medida.",
-    price: "Diagnóstico gratuito · Devolutiva + projeto sob consulta",
-    ctaLabel: "Fazer diagnóstico gratuito",
+      "O trabalho completo. Começa por um Diagnóstico Estratégico e evolui para um projeto que redesenha o processo, indica as ferramentas certas (inclusive IA) e capacita o time — sem assumir a sua operação.",
+    ctaLabel: "Fazer o Diagnóstico",
     ctaHref: "/diagnostico",
   },
 ];
@@ -83,10 +85,10 @@ export function ServicesSection() {
           className="text-center mb-16 sm:mb-20"
         >
           <p className="text-xs font-bold uppercase tracking-wider text-primary mb-4">
-            Portfólio
+            Como trabalho
           </p>
           <h2 className="text-4xl md:text-5xl font-extrabold text-[#0A0F1E] tracking-tight text-center">
-            Três formas de trabalhar comigo
+            Da autoridade à transformação da sua operação
           </h2>
         </motion.div>
 
@@ -106,7 +108,7 @@ export function ServicesSection() {
               <motion.div
                 key={service.number}
                 variants={cardVariants}
-                className="bg-white rounded-2xl border border-black/5 p-6 sm:p-8 card-glow-light group hover:border-primary/20 transition-all duration-300"
+                className="bg-white rounded-2xl border border-black/5 p-6 sm:p-8 card-glow-light group hover:border-primary/20 transition-all duration-300 flex flex-col"
               >
                 {/* Number + Icon */}
                 <div className="flex items-start justify-between mb-6">
@@ -119,7 +121,7 @@ export function ServicesSection() {
                 </div>
 
                 {/* Tag */}
-                <span className="inline-flex items-center rounded-full bg-primary/10 text-primary text-[11px] font-semibold uppercase tracking-wider px-3 py-1 mb-4">
+                <span className="inline-flex self-start items-center rounded-full bg-primary/10 text-primary text-[11px] font-semibold uppercase tracking-wider px-3 py-1 mb-4">
                   {service.tag}
                 </span>
 
@@ -133,33 +135,42 @@ export function ServicesSection() {
                   {service.description}
                 </p>
 
-                {/* Price */}
-                <div className="border-t border-black/5 pt-4">
-                  <p className="text-sm font-semibold text-[#0A0F1E]">
-                    {service.price}
-                  </p>
-                </div>
+                {/* Optional items */}
+                {service.items && (
+                  <ul className="space-y-2.5 mb-6">
+                    {service.items.map((item, i) => (
+                      <li key={i} className="flex items-start gap-2.5">
+                        <ArrowRight className="size-4 text-primary shrink-0 mt-0.5" />
+                        <span className="text-sm text-neutral-600 leading-relaxed">
+                          {item}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
 
                 {/* CTA */}
-                {isInternal ? (
-                  <Link
-                    href={service.ctaHref}
-                    className="inline-flex items-center gap-1.5 text-sm font-bold text-primary hover:text-primary/80 transition group/btn mt-3"
-                  >
-                    {service.ctaLabel}
-                    <ArrowRight className="size-4 transition-transform group-hover/btn:translate-x-1" />
-                  </Link>
-                ) : (
-                  <a
-                    href={service.ctaHref}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-sm font-bold text-primary hover:text-primary/80 transition group/btn mt-3"
-                  >
-                    {service.ctaLabel}
-                    <ArrowRight className="size-4 transition-transform group-hover/btn:translate-x-1" />
-                  </a>
-                )}
+                <div className="mt-auto pt-4 border-t border-black/5">
+                  {isInternal ? (
+                    <Link
+                      href={service.ctaHref}
+                      className="inline-flex items-center gap-1.5 text-sm font-bold text-primary hover:text-primary/80 transition group/btn"
+                    >
+                      {service.ctaLabel}
+                      <ArrowRight className="size-4 transition-transform group-hover/btn:translate-x-1" />
+                    </Link>
+                  ) : (
+                    <a
+                      href={service.ctaHref}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-sm font-bold text-primary hover:text-primary/80 transition group/btn"
+                    >
+                      {service.ctaLabel}
+                      <ArrowRight className="size-4 transition-transform group-hover/btn:translate-x-1" />
+                    </a>
+                  )}
+                </div>
               </motion.div>
             );
           })}

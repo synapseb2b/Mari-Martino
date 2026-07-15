@@ -5,7 +5,7 @@ export function JsonLd() {
     name: "Mari Martino — Talent Acquisition",
     url: "https://mari-martino.vercel.app",
     description:
-      "Estruturo operações de Talent Acquisition com dados, processo e inteligência de mercado. 17 anos construindo máquinas de contratação em empresas como iFood, CI&T e Sage.",
+      "Arquitetura de operações de Talent Acquisition com dados, processo e IA. 17 anos em iFood, CI&T e Sage, com 1.000+ contratações tech lideradas em um único ano.",
     founder: {
       "@type": "Person",
       name: "Mariane Martino",
@@ -16,10 +16,10 @@ export function JsonLd() {
       name: "BR",
     },
     serviceType: [
-      "Mentoria Estratégica Individual em Talent Acquisition",
-      "TA Intelligence Program",
-      "Diagnóstico de Maturidade de TA",
-      "Consultoria em Talent Acquisition",
+      "Diagnóstico Estratégico de Talent Acquisition",
+      "Projeto de Arquitetura de TA",
+      "Fast Tracks de IA em Recrutamento",
+      "Palestras e Masterclasses",
       "People Analytics",
     ],
     knowsAbout: [

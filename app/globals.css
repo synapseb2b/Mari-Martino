@@ -46,7 +46,7 @@
 
   /* Dimension colors — TA Diagnostic */
   --color-dim-processo: #818cf8;
-  --color-dim-dados: #34d399;
+  --color-dim-dados: #22D3EE;
   --color-dim-tecnologia: #f59e0b;
   --color-dim-lideranca: #f472b6;
   --color-dim-marca: #a78bfa;
@@ -74,8 +74,8 @@
   --popover: #111827;
   --popover-foreground: #F8FAFC;
 
-  /* Emerald — Primary (accent) */
-  --primary: #10B981;
+  /* Violet — Primary (accent) */
+  --primary: #8B5CF6;
   --primary-foreground: #FFFFFF;
 
   /* Dark surface — Secondary */
@@ -96,11 +96,11 @@
   /* Borders */
   --border: #1E293B;
   --input: #1E293B;
-  --ring: #10B981;
+  --ring: #8B5CF6;
 
   /* Chart Colors */
-  --chart-1: #10B981;
-  --chart-2: #14B8A6;
+  --chart-1: #8B5CF6;
+  --chart-2: #6366F1;
   --chart-3: #F59E0B;
   --chart-4: #A78BFA;
   --chart-5: #F472B6;
@@ -108,16 +108,16 @@
   /* Sidebar */
   --sidebar: #0A0F1E;
   --sidebar-foreground: #F8FAFC;
-  --sidebar-primary: #10B981;
+  --sidebar-primary: #8B5CF6;
   --sidebar-primary-foreground: #FFFFFF;
   --sidebar-accent: #162230;
   --sidebar-accent-foreground: #F8FAFC;
   --sidebar-border: #1E293B;
-  --sidebar-ring: #10B981;
+  --sidebar-ring: #8B5CF6;
 
   /* Custom Glow */
-  --glow-primary: rgba(16, 185, 129, 0.3);
-  --glow-muted: rgba(16, 185, 129, 0.15);
+  --glow-primary: rgba(139, 92, 246, 0.3);
+  --glow-muted: rgba(139, 92, 246, 0.15);
 }
 
 @layer base {
@@ -138,9 +138,9 @@
    Utility Classes
    ======================================== */
 @layer utilities {
-  /* Text gradient — Emerald → Teal */
+  /* Text gradient — Violet → Indigo */
   .text-gradient {
-    background: linear-gradient(135deg, #10B981, #14B8A6);
+    background: linear-gradient(135deg, #8B5CF6, #6366F1);
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;

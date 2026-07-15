@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Zap } from "lucide-react";
+import { AlertTriangle, Zap } from "lucide-react";
 
 const containerVariants = {
   hidden: {},
@@ -20,6 +20,20 @@ const cardVariants = {
   },
 };
 
+const signals = [
+  "Vagas críticas ficam meses abertas e travam o comercial",
+  "O recrutamento roda sem processo, na base do improviso",
+  "As contratações dependem de indicação, não de método",
+  "A marca empregadora não atrai os melhores candidatos",
+];
+
+const reasons = [
+  "Método de TA de empresa de tecnologia aplicado a qualquer setor",
+  "Dados, processo e projetos ágeis no lugar de intuição",
+  "IA no pipeline de recrutamento, na prática — não como conceito",
+  "Construo com o seu time e transfiro autonomia, sem assumir a operação",
+];
+
 export function ForWhoSection() {
   return (
     <section id="for-who" className="relative bg-[#F8FAFC] py-24 md:py-32 overflow-hidden">
@@ -36,7 +50,7 @@ export function ForWhoSection() {
             PARA QUEM
           </p>
           <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-[#0A0F1E]">
-            Soluções dimensionadas para cada desafio
+            Para empresas que crescem mais rápido do que contratam
           </h2>
         </motion.div>
 
@@ -48,31 +62,62 @@ export function ForWhoSection() {
           viewport={{ once: true, margin: "-80px" }}
           className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8"
         >
-          {/* Card B2C */}
+          {/* Card — Sinais */}
           <motion.div
             variants={cardVariants}
             className="bg-white rounded-2xl border border-black/5 p-6 sm:p-8 card-glow-light flex flex-col group"
           >
             <span className="inline-flex self-start items-center rounded-full bg-primary/10 text-primary text-[11px] font-semibold uppercase tracking-wider px-3 py-1 mb-5">
-              B2C
+              O sinal
             </span>
 
             <h3 className="text-2xl sm:text-3xl font-bold text-[#0A0F1E] mb-3">
-              Para profissionais de TA/RH
+              Sua operação de talentos travou
             </h3>
 
             <p className="text-sm text-neutral-500 leading-relaxed mb-6">
-              Você tem 25-35 anos, trabalha com recrutamento e está no momento de provar que sua
-              área gera resultado estratégico — não só operacional.
+              A empresa cresce, o CEO ainda entra em entrevistas e o time de RH
+              corre atrás sem parar. Se você reconhece os sinais abaixo, é hora de
+              estruturar.
             </p>
 
             <ul className="space-y-3 mb-8 flex-1">
-              {[
-                "Em transição para seu primeiro cargo de liderança",
-                "Precisa construir indicadores que provem valor para a diretoria",
-                "Quer dominar dados, métricas e People Analytics",
-                "Busca método — não motivação",
-              ].map((item, i) => (
+              {signals.map((item, i) => (
+                <li key={i} className="flex items-start gap-3">
+                  <AlertTriangle className="size-4 text-primary shrink-0 mt-0.5" />
+                  <span className="text-sm text-neutral-600 leading-relaxed">{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <Link
+              href="/diagnostico"
+              className="inline-flex items-center self-start text-primary font-bold text-sm hover:underline transition-colors"
+            >
+              Fazer o diagnóstico gratuito →
+            </Link>
+          </motion.div>
+
+          {/* Card — Por que a Mari */}
+          <motion.div
+            variants={cardVariants}
+            className="bg-white rounded-2xl border border-black/5 p-6 sm:p-8 card-glow-light flex flex-col group"
+          >
+            <span className="inline-flex self-start items-center rounded-full bg-primary/10 text-primary text-[11px] font-semibold uppercase tracking-wider px-3 py-1 mb-5">
+              A solução
+            </span>
+
+            <h3 className="text-2xl sm:text-3xl font-bold text-[#0A0F1E] mb-3">
+              Por que a Mari
+            </h3>
+
+            <p className="text-sm text-neutral-500 leading-relaxed mb-6">
+              17 anos estruturando recrutamento em empresas de tecnologia de alta
+              escala. Esse mesmo rigor, aplicado à realidade da sua empresa.
+            </p>
+
+            <ul className="space-y-3 mb-8 flex-1">
+              {reasons.map((item, i) => (
                 <li key={i} className="flex items-start gap-3">
                   <Zap className="size-4 text-primary shrink-0 mt-0.5" />
                   <span className="text-sm text-neutral-600 leading-relaxed">{item}</span>
@@ -84,47 +129,7 @@ export function ForWhoSection() {
               href="#services"
               className="inline-flex items-center self-start text-primary font-bold text-sm hover:underline transition-colors"
             >
-              Conhecer mentoria →
-            </Link>
-          </motion.div>
-
-          {/* Card B2B */}
-          <motion.div
-            variants={cardVariants}
-            className="bg-white rounded-2xl border border-black/5 p-6 sm:p-8 card-glow-light flex flex-col group"
-          >
-            <span className="inline-flex self-start items-center rounded-full bg-primary/10 text-primary text-[11px] font-semibold uppercase tracking-wider px-3 py-1 mb-5">
-              B2B
-            </span>
-
-            <h3 className="text-2xl sm:text-3xl font-bold text-[#0A0F1E] mb-3">
-              Para empresas de 100 a 1.000 funcionários
-            </h3>
-
-            <p className="text-sm text-neutral-500 leading-relaxed mb-6">
-              Sua empresa fatura R$ 20-500M, o CEO ainda participa de entrevistas e vagas críticas
-              ficam abertas por meses. O RH existe, mas opera sem dados e sem processo escalável.
-            </p>
-
-            <ul className="space-y-3 mb-8 flex-1">
-              {[
-                "Vagas críticas levam mais de 60 dias para fechar",
-                "RH reporta ao financeiro — não existe Head of People",
-                "Contratações dependem de indicação, não de processo",
-                "Turnover acima de 20% nos primeiros 6 meses",
-              ].map((item, i) => (
-                <li key={i} className="flex items-start gap-3">
-                  <Zap className="size-4 text-primary shrink-0 mt-0.5" />
-                  <span className="text-sm text-neutral-600 leading-relaxed">{item}</span>
-                </li>
-              ))}
-            </ul>
-
-            <Link
-              href="/diagnostico"
-              className="inline-flex items-center self-start text-primary font-bold text-sm hover:underline transition-colors"
-            >
-              Fazer diagnóstico gratuito →
+              Ver como trabalho →
             </Link>
           </motion.div>
         </motion.div>

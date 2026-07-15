@@ -32,7 +32,7 @@ export function Footer() {
             <p className="text-lg font-extrabold text-foreground">Mari Martino</p>
             <p className="text-sm text-primary font-medium mt-1">Talent Acquisition</p>
             <p className="text-sm text-muted-foreground leading-relaxed mt-3">
-              Estruturação de operações de TA com dados e inteligência de mercado.
+              Arquitetura de operações de TA com dados, processo e IA.
             </p>
           </div>
 

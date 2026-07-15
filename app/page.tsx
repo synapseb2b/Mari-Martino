@@ -14,9 +14,9 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
+        <ForWhoSection />
         <ServicesSection />
         <AuthoritySection />
-        <ForWhoSection />
         <DiagnosticPreview />
         <FinalCTA />
       </main>

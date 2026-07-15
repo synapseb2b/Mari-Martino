@@ -85,9 +85,9 @@ export function Hero() {
             custom={2}
             className="text-lg text-muted-foreground max-w-2xl leading-relaxed mt-6"
           >
-            Estruturo operações de Talent Acquisition com dados, processo e
-            inteligência de mercado. 17 anos construindo máquinas de contratação
-            em empresas como iFood, CI&T e Sage.
+            Não é recrutamento. É a arquitetura da operação que faz a empresa
+            atrair, contratar, integrar e acompanhar talento no ritmo do
+            crescimento — com dados, processo e IA. 17 anos em iFood, CI&T e Sage.
           </motion.p>
 
           {/* CTAs */}
@@ -126,7 +126,7 @@ export function Hero() {
             className="mt-10 sm:mt-12"
           >
             <span className="inline-flex items-center rounded-full bg-white/5 border border-white/10 px-5 py-2.5 text-sm text-muted-foreground">
-              17 anos em Talent Acquisition · iFood · CI&T · Sage
+              1.000+ contratações tech em um ano · Latam e América do Norte
             </span>
           </motion.div>
         </div>

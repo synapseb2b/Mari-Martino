@@ -13,7 +13,7 @@ import {
 
 const dimensions = [
   { label: "Processo", icon: GitBranch, color: "#818cf8" },
-  { label: "Dados", icon: Database, color: "#34d399" },
+  { label: "Dados", icon: Database, color: "#22d3ee" },
   { label: "Tecnologia", icon: Cpu, color: "#f59e0b" },
   { label: "Liderança", icon: Crown, color: "#f472b6" },
   { label: "Marca Empregadora", icon: Megaphone, color: "#a78bfa" },
@@ -103,7 +103,7 @@ export function DiagnosticPreview() {
                   style={{
                     height: `${20 + i * 14}px`,
                     opacity: 0.3 + i * 0.2,
-                    background: "linear-gradient(135deg, #10B981, #14B8A6)",
+                    background: "linear-gradient(135deg, #8B5CF6, #6366F1)",
                   }}
                 />
                 <span className="text-[10px] sm:text-xs font-medium text-muted-foreground text-center">

@@ -96,7 +96,7 @@ export const DIMENSIONS: DiagnosticDimension[] = [
     id: "dados",
     name: "Dados & Métricas de Recrutamento",
     icon: BarChart3,
-    color: "#34d399",
+    color: "#22d3ee",
     questions: [
       {
         q: "Vocês sabem, hoje, qual é o tempo médio para preencher uma vaga?",
@@ -260,7 +260,7 @@ export const STAGES: MaturityStage[] = [
       "Escolher uma ferramenta básica de gestão (pode ser Notion ou Trello)",
       "Treinar os 3 gestores que mais contratam em técnicas básicas de entrevista",
     ],
-    cta: "Diagnóstico de Urgência — sessão focada em estancar o sangramento e montar o plano de 30 dias.",
+    cta: "Diagnóstico Estratégico — imersão curta que estanca o sangramento e monta o plano de ação prioritário.",
   },
   {
     id: "operacional",
@@ -283,14 +283,14 @@ export const STAGES: MaturityStage[] = [
       "Padronizar scorecards de entrevista por família de cargo",
       "Criar SLAs de tempo entre etapas: triagem 48h, feedback 5 dias",
     ],
-    cta: "Programa de Aceleração — 6 semanas para implementar métricas, dashboards e SLAs que transformam TA em área estratégica.",
+    cta: "Projeto de Arquitetura de TA — implementa métricas, dashboards e SLAs que transformam o recrutamento em área estratégica.",
   },
   {
     id: "estrategico",
     name: "Estratégico",
     subtitle: "Dados Guiam Decisões",
     range: [40, 51],
-    color: "#10b981",
+    color: "#22d3ee",
     icon: TrendingUp,
     description:
       "Sua operação de TA usa dados para decidir, tem processos documentados e a liderança confia no sistema. O próximo passo é antecipar necessidades e usar tecnologia avançada para vantagem competitiva na atração.",
@@ -305,7 +305,7 @@ export const STAGES: MaturityStage[] = [
       "Desenvolver banco de talentos ativo com nurturing de candidatos passivos",
       "Conectar métricas de TA a indicadores de negócio: receita por funcionário",
     ],
-    cta: "Advisory Estratégico — acompanhamento mensal para elevar a maturidade de TA ao nível preditivo.",
+    cta: "Projeto de Arquitetura de TA (Transformação) — advisory contínuo para elevar a maturidade ao nível preditivo.",
   },
   {
     id: "preditivo",
@@ -326,7 +326,7 @@ export const STAGES: MaturityStage[] = [
       "Construir programa de talent intelligence integrado ao planejamento estratégico",
       "Tornar-se referência de employer brand no seu setor",
     ],
-    cta: "Masterclass ou Mentoria Executiva — troca de alto nível para manter a vanguarda.",
+    cta: "Masterclass ou advisory executivo — troca de alto nível para manter a vanguarda.",
   },
 ];
 
@@ -336,7 +336,7 @@ export const STAGES: MaturityStage[] = [
 
 export const INTRO_CARDS: IntroCard[] = [
   { icon: Settings, label: "Processo", color: "#818cf8" },
-  { icon: BarChart3, label: "Dados", color: "#34d399" },
+  { icon: BarChart3, label: "Dados", color: "#22d3ee" },
   { icon: Wrench, label: "Tecnologia", color: "#f59e0b" },
   { icon: Users, label: "Liderança", color: "#f472b6" },
   { icon: Sparkles, label: "Marca", color: "#a78bfa" },

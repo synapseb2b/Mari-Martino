@@ -18,7 +18,7 @@ export function FinalCTA() {
           transition={{ duration: 0.6 }}
           className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-foreground tracking-tight"
         >
-          Pronta para estruturar sua operação de talentos?
+          Pronto para estruturar sua operação de talentos?
         </motion.h2>
 
         {/* Subtitle */}
@@ -29,8 +29,8 @@ export function FinalCTA() {
           transition={{ delay: 0.15, duration: 0.6 }}
           className="text-base sm:text-lg text-muted-foreground leading-relaxed mt-6 max-w-2xl mx-auto"
         >
-          Agende uma conversa estratégica e descubra como reduzir seu time-to-fill, eliminar a
-          dependência de indicações e construir uma operação de recrutamento que acompanha o
+          Uma conversa direta para reduzir o time-to-fill, tirar o recrutamento
+          da dependência de indicações e construir uma operação que acompanha o
           crescimento da empresa.
         </motion.p>
 

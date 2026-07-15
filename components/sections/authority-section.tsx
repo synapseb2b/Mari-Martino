@@ -5,16 +5,16 @@ import { CheckCircle2 } from "lucide-react";
 
 const credentials = [
   "17 anos estruturando operações de Talent Acquisition em tecnologia",
-  "Senior Tech TA Coordinator no iFood",
-  "Passagens por CI&T e Sage — construindo máquinas de contratação de escala",
+  "1.000+ contratações tech lideradas em um único ano",
+  "Trajetória em iFood, CI&T e Sage, com operação em Latam e América do Norte",
+  "Implementa agentes de IA no pipeline de recrutamento, na prática",
   "Especialista em People Analytics e maturidade de TA",
-  "Mentora de profissionais de RH em transição para liderança",
 ];
 
 const stats = [
   { value: "17+", label: "anos de experiência" },
-  { value: "500+", label: "profissionais impactados" },
-  { value: "5", label: "dimensões de maturidade avaliadas" },
+  { value: "1.000+", label: "contratações tech em um ano" },
+  { value: "2", label: "continentes de operação" },
 ];
 
 const fadeUp = {

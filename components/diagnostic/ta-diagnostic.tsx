@@ -38,8 +38,8 @@ const KEYFRAMES = `
   to   { opacity: 1; transform: translateY(0); }
 }
 @keyframes pg {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(16,185,129,0); }
-  50%      { box-shadow: 0 0 32px 4px rgba(16,185,129,0.15); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(139,92,246,0); }
+  50%      { box-shadow: 0 0 32px 4px rgba(139,92,246,0.15); }
 }
 `;
 
@@ -154,9 +154,9 @@ export function TADiagnostic() {
           {/* CTA button */}
           <button
             onClick={() => setScreen("quiz")}
-            className="inline-flex items-center gap-2.5 px-[52px] py-4 bg-primary text-white border-none rounded-xl font-sans text-base font-bold cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_40px_rgba(16,185,129,0.4)]"
+            className="inline-flex items-center gap-2.5 px-[52px] py-4 bg-primary text-white border-none rounded-xl font-sans text-base font-bold cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_40px_rgba(139,92,246,0.4)]"
             style={{
-              boxShadow: "0 4px 32px rgba(16,185,129,0.3)",
+              boxShadow: "0 4px 32px rgba(139,92,246,0.3)",
             }}
           >
             Iniciar Diagn&oacute;stico <ArrowRight size={18} />
@@ -202,7 +202,7 @@ export function TADiagnostic() {
               className="h-full rounded-sm transition-[width] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
               style={{
                 width: `${(answered / total) * 100}%`,
-                background: "linear-gradient(90deg, #10B981, #14B8A6)",
+                background: "linear-gradient(90deg, #8B5CF6, #6366F1)",
               }}
             />
           </div>
@@ -496,9 +496,9 @@ export function TADiagnostic() {
               href="https://wa.me/5519991396595?text=Ol%C3%A1%20Mari%2C%20fiz%20o%20diagn%C3%B3stico%20e%20gostaria%20de%20agendar%20uma%20devolutiva."
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2.5 px-11 py-[15px] bg-primary text-white border-none rounded-xl font-sans text-[15px] font-bold cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_40px_rgba(16,185,129,0.4)]"
+              className="inline-flex items-center gap-2.5 px-11 py-[15px] bg-primary text-white border-none rounded-xl font-sans text-[15px] font-bold cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_40px_rgba(139,92,246,0.4)]"
               style={{
-                boxShadow: "0 4px 28px rgba(16,185,129,0.3)",
+                boxShadow: "0 4px 28px rgba(139,92,246,0.3)",
               }}
             >
               Agendar Devolutiva com a Mari <ChevronRight size={18} />
